@@ -1,0 +1,5 @@
+.vscode 
+media 
+db.sqlite3
+node_modules/
+front/node_modules
