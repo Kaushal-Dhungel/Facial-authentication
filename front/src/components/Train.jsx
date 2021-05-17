@@ -3,7 +3,12 @@ import {Link} from 'react-router-dom';
 import Webcam from "react-webcam";
 import axios from 'axios';
 import getCookie from './utils';
-import { Default } from 'react-spinners-css';
+import { Ellipsis } from 'react-spinners-css';
+import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
+import AddIcon from '@material-ui/icons/Add';
+import ClearIcon from '@material-ui/icons/Clear';
+import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
+import PhotoSizeSelectActualIcon from '@material-ui/icons/PhotoSizeSelectActual';
 
 const Train = (props) => {
     const [showcam,setShowcam] = React.useState(false);
@@ -58,11 +63,6 @@ const Train = (props) => {
 
     const trainFunc = () => {
 
-        if(personName === '' || backendimg === null){
-            setErr(" Name/Image missing")
-            return
-        }
-
         if (!backendimg.name.match(/.(jpg|jpeg)$/i)){
             setErr('please use jpg/jpeg image only');
             return
@@ -103,33 +103,33 @@ const Train = (props) => {
             marginTop:"10vh", minHeight:"80vh"
             }}>
 
-            <div className="heading">
+            <div className="header">
                 <h3> Train Here </h3>
             </div>
 
-            <div className="name_wrapper">
-                <div className="name_of_person">
-                    <input name = 'person_name' className = "form_input" type="text"  onChange= {handleChange} value = {personName}
-                    placeholder="Name of the Person" autoComplete = 'off' />
+            <div className="camera_top">
+                <div className="">
+                    <button className = "btn btn-primary" onClick = {camerafn}> {showcam?`Stop`:`Start`} Camera</button>
+                </div>
+
+                <div>
+                    <input className="select_img" name = 'image'type="file" accept="image/*" onChange= {imgChange} />
                 </div>
             </div>
 
             {
-                    err !== '' ? 
-                        <div className="message_section">
-                            <h4> {err} </h4>
-                            <button className = "contact_button" onClick={()=> setErr('')}>Clear</button>
-                        </div>
-                        : null
-                }
+                err !== '' ? 
+                    <div className="message_section">
+                        <h4> {err} </h4>
+                        <button className = "btn btn-danger" onClick={()=> setErr('')}><ClearIcon /> </button>
+                    </div>
+                    : null
+            }
 
             <center className = "camera_and_pic">
                 <div className="verification" id= "verify" style = {{
-                    margin:"5vh 0"
+                    marginTop:"5vh"
                     }}>
-
-                        <button onClick = {camerafn}> {showcam?`Stop`:`Start`} Camera</button>
-
                         {
                             showcam?
                             <div className="camera">
@@ -141,52 +141,62 @@ const Train = (props) => {
                                     width={500}
                                     // videoConstraints={videoConstraints}
                                 />
-                                <button onClick={capture} style={{margin:"1vh 0"}}>Capture photo</button>
+                                <button className = "btn btn-primary" onClick={capture} style={{margin:"1vh 0"}}>Capture photo</button>
                             </div>
-                            : null
+                            : 
+                            <PhotoCameraIcon style = {{fontSize : 350}} />
                         }
-
-                        {/* <div className="select_img">
-                            <h3 style = {{color:"white"}}> Or </h3>
-                            <input name = 'image' className = "form_input" type="file" accept="image/*" onChange= {imgChange} />
-                        </div> */}
                     
                 </div>
                 
                 <div className="img_field">
                     {
                     imgsrc === ""? 
-                        <h2 style = {{color:"white"}}> Image will be displayed here </h2>:
+                    <PhotoSizeSelectActualIcon style = {{fontSize:350,marginRight:"5vw"}} />
+                        :
                         <>
-                            <img src={imgsrc} alt=".." srcset="" height= "365px" width= "400px"/>
+                            <div className="img_field">
+                                <img src={imgsrc} alt=".." srcset="" height= "365px" width= "400px"/>
 
-                            <div className="btnss" style= {{marginTop:"5vh"}}>
-                                
-                                {
-                                    loading ? 
-                                    <div className="loading_loading" style = {{display:"flex", justifyContent:"center",alignItems:"center"}}>
-                                        <Default color = "rgb(230, 43, 83)" size = {100} />
-                                    </div>
-                                    :
-                                    <div className = "camButtons" >
-                                        <button onClick = {trainFunc}>Train</button>
-                                        <button onClick = {()=> 
-                                        {setImgsrc('') 
-                                        setErr('')}}
-                                        >Clear</button>
-                                    </div>
-                                }
-                                
+                                <div className="btnss" style= {{marginTop:"5vh"}}>
+                                    
+                                    {
+                                        loading ? 
+                                        <div className="loading_loading" style = {{display:"flex", justifyContent:"center",alignItems:"center"}}>
+                                            <Ellipsis color = "rgb(230, 43, 83)" size = {100} />
+                                        </div>
+                                        :
+                                        <div className = "camButtons" >
+                                            <button className = "btn btn-primary" 
+                                            onClick = {trainFunc}
+                                            disabled = {personName === ''}
+                                            >Train</button>
+                                            
+                                            <button className = "btn btn-danger"  onClick = {()=> 
+                                            {setImgsrc('') 
+                                            setErr('')}}
+                                            >Clear</button>
+                                        </div>
+                                    }
+                                    
+                                </div>
                             </div>
                            
                         </>
                     }
                 </div>
-    
             </center>
 
-            <div className="select_img">
-                <input name = 'image' className = "form_input" type="file" accept="image/*" onChange= {imgChange} />
+            <div className="formArea">
+                    <input name = 'subevent' className = "formStyle" type="text"  
+                    placeholder="Enter Person's Name.." autoComplete = 'off' 
+                    onChange = {handleChange}
+                    value = {personName}
+                    />
+                    {/* <button className = "btn btn-outline-secondary" 
+                    onClick = {trainFunc}
+                    disabled = {personName === ""}
+                    > <AddIcon /> </button> */}
             </div>
 
         </div>

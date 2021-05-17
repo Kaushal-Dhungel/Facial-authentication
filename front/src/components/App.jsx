@@ -8,7 +8,7 @@ import Attendence from './Attendence';
 import SubEvent from './SubEvent';
 import Train from './Train';
 import LogOut from './Logout';
-
+import Login from './Login';
 
 const Footer = () => {
     return (
@@ -25,7 +25,7 @@ const App = () => {
         <BrowserRouter >
         <Switch>
             <Route exact path = '/' component = {Home}/>
-            <Route exact path = '/register' component = {Register}/>
+            <Route exact path = '/register' component = {Login}/>
             <Route exact path = '/allevents' component = {AllEvents}/>
             <Route exact path = '/logout' component = {LogOut}/>
             <Route exact path = '/event/:id' component = {Event}/>

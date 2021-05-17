@@ -2,13 +2,18 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import getCookie from './utils';
-import { Default } from 'react-spinners-css';
+import { Ellipsis } from 'react-spinners-css';
+import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
+import AddIcon from '@material-ui/icons/Add';
+import ClearIcon from '@material-ui/icons/Clear';
 
 const AllEvents = () => {
 
     const [items,setItems] = React.useState([])
-    const [message,setMessage] = React.useState()
+    const [message,setMessage] = React.useState(null)
     const [loading,isLoading] = React.useState(false)
+    const [eventValue, setEventValue] = React.useState('');
+    const [searchVal, setSearchVal] = React.useState([]);
 
     React.useEffect(()=> {
         const fetchItems = async() => {
@@ -16,6 +21,7 @@ const AllEvents = () => {
             .then(res => {
                 console.log(res.data)
                 setItems(res.data)
+                setSearchVal(res.data)
             })
             .catch(err => {
                 console.log(err)
@@ -24,22 +30,19 @@ const AllEvents = () => {
         fetchItems();
     },[])
 
-
-    function handleSubmit(e) {
+    function handleEventChange (e) {
         e.preventDefault();
-        const form = new FormData(e.target);
+        setEventValue(e.target.value)
+    }
 
-        const event = form.get("event")
-        
-        if (event === undefined|| event === ''){
-            setMessage('Please Enter The Event Name')
-            return
-        }
+    function handleAddEvent(e) {
+        e.preventDefault();
+
+        const form = new FormData();
+        form.append('event',eventValue)
 
         isLoading(true)
         const csrftoken = getCookie('csrftoken');
-
-
         const axiosConfig = {
                 headers: {
                     "X-CSRFToken": csrftoken
@@ -55,68 +58,115 @@ const AllEvents = () => {
                     [res.data,...prevvalue,]
                 )
             })
+
+            setSearchVal((prevvalue) => {
+                return(
+                    [res.data,...prevvalue,]
+                )
+            })
+
             isLoading(false)
             setMessage('New Event Added')
         })
         .catch(err => {
             console.log(err);
-            // console.log(err.response.data);
             isLoading(false)
             setMessage('Some Error occured. Please Try Later')
         })
     }
+
+    function handleSearch(e) {
+        e.preventDefault();
+        const value = e.target.value;
+        
+        const newarr = items.filter((item) => {
+            return item.name.toLowerCase().match(value.toLowerCase())
+            // return item.name.toLowerCase() === value.toLowerCase()
+        })
+            value === "" ? 
+                setSearchVal(prevVal => {
+                    return [...items]
+                })
+            :
+                setSearchVal(prevVal => {
+                    return [...newarr]
+                })
+    }
+
     return (
         <>
         <div className="container">
-            <div className="top">
 
-            <div className="heading">
-                <h3> Add Event </h3>
-            </div>
-                {    
-                message?        
-                <div className="message_section">
-                    <h4> {message} </h4>
-                    <button className = "contact_button" onClick={()=> setMessage(null)}>Clear</button>
-                </div>
-                : null
-                }
-
-                {
-                    loading?
-                    <div className="loading_loading" style = {{display:"flex", justifyContent:"center",alignItems:"center"}}>
-                        <Default color = "rgb(230, 43, 83)" size = {150} />
-                    </div>:
-                    <div className="form_wrapper">
-                        <form onSubmit={handleSubmit} className = "contact_form" action="#">
-                            <input name = 'event' className = "form_input" type="text"  placeholder="Event name" autoComplete = 'off' />
-                            <button className = "contact_button">Add</button>
-                        </form>
-                    </div>
-                }
-
-            </div>
-
-            <div className="heading">
+            <div className="header">
                 <h3> All Events </h3>
             </div>
 
-        <div className="event_section">
+            <div className="search_and_sort">
 
-            {   items === undefined ? null :
-                items.length === 0? <h4 style = {{color:"white", margin:"5vh 0"}}> No Events Available </h4>:
-                items.map((item,index)=> {
-                    return(
-                        <div key = {index} className="event_card">
-                            <h4> {item.name} </h4>
-                            <p> {`${new Date(item.created).getFullYear()}-${new Date(item.created).getMonth()}-${new Date(item.created).getDate()}`} </p>
-                            <Link to = {`/event/${item.slug}`} className = "btn">Visit</Link>
-                        </div>
-                    )
-                })
+                <div className="formArea">
+                    <input name = 'event' className = "formStyle" type="text"  
+                    placeholder="New Event Name" autoComplete = 'off' 
+                    onChange = {handleEventChange}
+                    value = {eventValue}
+                    />
+                    <button className = "btn btn-outline-secondary" 
+                    onClick = {handleAddEvent}
+                    disabled = {eventValue === ""}
+                    > <AddIcon /> </button>
+                </div>
+
+                <form action="">
+                    <input type="text" name="search" className="formStyle lb" 
+                    placeholder="Search Name Here" autocomplete="off" required 
+                    // value = {values.search}
+                    onChange = {handleSearch}
+                    />
+                </form>
+            </div>  
+
+        
+            <div className="top">
+                {    
+                message !== null?        
+                <div className="message_section">
+                    <h4> {message} </h4>
+                    <button className = "btn btn-danger" onClick={()=> setMessage(null)}> <ClearIcon /> </button>
+                </div>
+                : null
+                }
+                {
+                    loading?
+                    <div className="loading_loading" style = {{display:"flex", justifyContent:"center",alignItems:"center"}}>
+                        <Ellipsis color = "rgb(230, 43, 83)" size = {100} />
+                    </div>:
+                    null
+                }
+
+            </div>  
+
+        <div>
+
+            {   
+            searchVal === undefined ? null
+                :
+                searchVal.length === 0 ? <h4 style = {{color:"white", textAlign:"center" , margin:"6vh 0"}}> No Event Available. </h4>
+                :
+                <div className="row">
+                    {
+                    searchVal.map((item,index)=> {
+                        return(
+                            <div key = {index} className="col-12 col-sm-12 col-md-6 col-lg-4 mt-5 ">
+                                <div key = {index} className="event_card">
+                                    <h4> {item.name} </h4>
+                                    <p> {`${new Date(item.created).getFullYear()}-${new Date(item.created).getMonth()}-${new Date(item.created).getDate()}`} </p>
+                                    <Link to = {`/event/${item.slug}`} className = "btn btn-danger">Visit <ArrowRightAltIcon /> </Link>
+                                </div>
+                            </div>
+                        )
+                    }) 
+                    }          
+                </div>
             }
-
-
         </div>
 
     </div>

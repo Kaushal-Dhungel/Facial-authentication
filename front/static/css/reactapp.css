@@ -33,18 +33,6 @@ body {
     color: rgb(201, 182, 182);
 }
 
-.btn {
-    background-color: #ff006a;
-    color: rgb(241, 235, 235);
-    font-size: 18px;
-	font-weight: 500;
-	/* transition: transform .8s */
-}
-.btn:hover {
-	/* transform: scale(1.1); */
-	color: white;
-}
-
 @media screen and (max-width: 780px) {
 
 	.landing{
@@ -59,17 +47,14 @@ body {
 /* ------------------------------------------------------------ Events ------------------------------------------------- */
 .event_card {
 	height: 20vh;
-	width: 100%;
-	background-color: hsl(240, 12%, 8%);
-	/* background-color: #7d7a92; */
+	background-color: hsl(0, 0%, 13%);
+	/* background-color:teal; */
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	border-radius: 20px;
-	margin: 2vh 0;
-	/* box-shadow:  4px 4px 7px 3px #141414; */
-
+    padding: 20px;
 }
 
 .event_card h4,.event_card p {
@@ -77,11 +62,7 @@ body {
 }
 
 .top {
-	margin-top: 10vh;
-}
-
-.heading{
-	margin-top: 15vh;
+	margin-top: 5vh;
 }
 
 .heading h3 {
@@ -90,30 +71,42 @@ body {
 	/* position: relative; */
 }
 
-
-.event_section {
-	/* margin-top: 20vh; */
-	display: flex;
-	flex-direction: column;
-	justify-content: space-around;
-	align-items: center;
-}
-
 .message_section {
 	border-radius: 10px;
-	margin: 5vh 0;
+	margin: 2vh 10vw;
 	height: 15vh;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	background-color: rgb(131, 66, 66);
+    border: 2px solid white;
+	/* background-color: rgb(131, 66, 66); */
 }
 
 .message_section h4 {
 	color: rgb(212, 206, 193);
 	text-align: center;
 }
+
+.search_and_sort {
+    display: flex;
+    justify-content: space-around;
+}
+
+.formArea {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+@media screen and (max-width: 780px) {  
+    .search_and_sort {
+        flex-direction: column;
+    }
+}
+
 /* ------------------------------------------------------------ subeventlist -------------------------------------------------- */
 .event_people{
 	margin-bottom: 20vh;
@@ -121,8 +114,8 @@ body {
 
 /*   copied  */
 .box-element{
-	box-shadow:hsl(0, 0%, 80%) 0 0 16px;
-	background-color: #fff;
+	box-shadow:hsl(0, 0%, 28%) 0 0 16px;
+	background-color: rgb(255, 255, 255);
 	border-radius: 4px;
 	padding: 10px;
 }
@@ -146,7 +139,37 @@ body {
 
 }
 
+.add_people {
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: center;
+    gap: 2rem;
+}
+.add_people h3 {
+    color: rgb(196, 195, 195);
+    text-align: center;
+}
 
+.add_people h3::after {
+    content: "";
+    background: #d6d4d4;
+    width: 250px;
+    height: 2px;
+    border-radius: 5px;
+    margin: auto;
+    display: grid;
+}
+
+@media screen and (max-width: 780px) { 
+
+    .add_people h3 {
+        font-size: 22px;
+    }
+    .add_people h3::after {
+        left: 21%;
+        width: 200px;
+    }
+}
 /* ------------------- ------------------------------Train ------------------------------------------- */
 
 .name_wrapper {
@@ -167,13 +190,33 @@ body {
 	margin: 1vh 0;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: space-between;
 	align-items: center;
 }
 
 .select_img {
-	margin: 4vh 0;
+    /* border: 1px solid #ccc; */
+    padding: 6px 12px;
+    cursor: pointer;
 }
+
+::-ms-browse {
+    background: #007bff;
+    color: rgb(240, 233, 233);
+    padding: 0.25em;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+  }
+
+::-webkit-file-upload-button {
+    background: #007bff;
+    color: rgb(240, 233, 233);
+    padding: 0.25em;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+  }
 
 .camera_and_pic {
 	display: flex;
@@ -186,25 +229,26 @@ body {
 	background-color: #CC00FF;
 } */
 
+.camera_top {
+    margin: 5vh 0;
+    display: flex;
+    justify-content: space-around;
+}
+
 .camera_and_pic {
 	display: flex;
-	justify-content: space-around;
+	justify-content: space-between;
 	/* height: 80vh; */
 }
 
 .img_field {
-	margin-top: 12vh;
+	margin-top: 5vh;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 
 }
-
-/* .btnss {
-	display: flex;
-	justify-content: space-around;
-} */
 
 .camButtons {
 	display: flex;
@@ -215,7 +259,7 @@ body {
 
 /* ---------------------------------------------------------- attendence --------------------------------------------- */
 .attendence {
-	margin-top: 10vh
+    margin-top: 2vh;
 }
 
 /* ------------------------------------------------------------ log out ------------------------------------------- */
@@ -239,17 +283,19 @@ body {
 .register_messages {
 	text-align: center;
 	color: #ececec;
+	/* box-shadow:hsl(0, 0%, 80%) 0 0 16px;
+	box-shadow:hsl(0, 0%, 5%) 0 0 16px;
+	background-color: rgb(37, 36, 36);
+	border-radius: 4px;
+	height: 20vh;
+	width: 30vw; */
+	/* padding: 10px; */
 }
 
 .contact_form {
 	background-color:hsl(228, 11%, 9%);
 	padding: 4vh 6vw;
 	border-radius: 20px;
-}
-
-.form_wrapper {
-	width: 100%;
-	margin-top:5vh ;
 }
 
 .register {
@@ -263,34 +309,8 @@ body {
 	margin: 15px 0;
 }
 
-button {
-	border-radius: 20px;
-	border: 1px solid #FF4B2B;
-	background-color: #FF4B2B;
-	color: #FFFFFF;
-	font-size: 12px;
-	font-weight: bold;
-	padding: 12px 40px;
-	letter-spacing: 1px;
-	text-transform: uppercase;
-	transition: transform 80ms ease-in;
-}
-
-button:active {
-	transform: scale(0.95);
-}
-
-button:focus {
-	outline: none;
-}
-
-button.ghost {
-	background-color: transparent;
-	border-color: #FFFFFF;
-}
-
 form {
-	background-color: #FFFFFF;
+	background-color: hsl(218, 85%, 3%);
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -315,10 +335,6 @@ form {
 	}
 
 }
-
-
-
-
 
 /* ------------------------------------ Timeline ------------------------------------------------------ */
 @import url('https://fonts.googleapis.com/css?family=Lato');
@@ -477,3 +493,115 @@ h1 {
 
 }
 
+.header {
+    margin:5vh 0;
+    text-align: center;
+    font-size: 2.8em;
+    color: #d6d4d4;
+  }
+
+.header::after {
+      content: "";
+      background: #d6d4d4;
+      width: 380px;
+      height: 5px;
+      border-radius: 5px;
+      margin: auto;
+      display: grid;
+      /* justify-content: center; */
+  }
+  
+.login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+	min-height: 40vh;
+  }
+
+  
+  .formStyle { 
+    background-color: hsl(218, 85%, 3%);
+    padding: 20px; 
+    width: 400px; 
+    margin-bottom: 20px; 
+    border-bottom-width: 1px; 
+    border-bottom-style: solid; 
+    border-bottom-color: #ecf0f1; 
+    border-top-style: none; 
+    border-right-style: none; 
+    border-left-style: none; 
+    font-size: 1em;
+    font-weight: 100;
+    color: #ffffff;
+  }
+  
+  
+  /*To remove the outline that appears on clicking the input textbox*/
+  input:focus {
+    outline: none;
+  }
+  
+select:focus {
+    outline: none;
+}
+  /* To format the placeholder text color */
+  ::-webkit-input-placeholder {
+     color: #ecf0f1;
+     font-size: 20px;
+  }
+  
+  :-moz-placeholder { /* Firefox 18- */
+     color: #ecf0f1;  
+     font-size: 20px;
+
+  }
+  
+  ::-moz-placeholder {  /* Firefox 19+ */
+     color: #ecf0f1;  
+     font-size: 20px;
+
+  }
+  
+  :-ms-input-placeholder {  
+     color: #ecf0f1;  
+     font-size: 20px;
+
+  }
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+input[type=file] {
+    /* -webkit-appearance: none;
+    -moz-appearance: textfield; */
+    /* display: none; */
+    background-color:  hsl(218, 85%, 3%);
+    color: white;
+  }
+
+@media screen and (max-width: 780px) { 
+
+    .login {
+        display: block;
+    }
+    .header {
+        font-size: 22px;
+    }
+
+    .header::after {
+        left: 21%;
+        width: 200px;
+    }
+
+    .formStyle {
+        width: 100%;
+    }
+}

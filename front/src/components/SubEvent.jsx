@@ -3,7 +3,12 @@ import {Link} from 'react-router-dom';
 import Webcam from "react-webcam";
 import axios from 'axios';
 import getCookie from './utils';
-import { Default } from 'react-spinners-css';
+import { Ellipsis } from 'react-spinners-css';
+import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
+import ClearIcon from '@material-ui/icons/Clear';
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
+import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
+import PhotoSizeSelectActualIcon from '@material-ui/icons/PhotoSizeSelectActual';
 
 const SubEvent = (props) => {
 
@@ -78,30 +83,35 @@ const SubEvent = (props) => {
         <div className="container" style = {{
             marginTop:"10vh", minHeight:"60vh"
             }}>
-
-            <center>
-                <div className="event_card">
-                    <h4> See The Authenticated People </h4>
-                    <Link className = "btn" to = {`/attendence/${slug}`}>Authenticated List</Link>
+            
+                <div className="add_people" style = {{display:"flex",justifyContent:"center"}}>
+                    <h3>Verified List <ArrowRightAltIcon /> </h3>
+                    <Link to = {`/attendence/${slug}`} className = "btn btn-danger">Go <ArrowRightAltIcon /> </Link>
                 </div>
-            </center>
+
+            <div className="camera_top">
+                <button onClick = {camerafn}
+                    className = "btn btn-primary"
+                    > {showcam?`Stop`:`Start`} Verification</button>
+
+                <div>
+                    <h3 style = {{color:"grey"}} > Image will be displayed Below <ArrowDownwardIcon /> </h3>
+                </div>
+            </div>
 
             {
-                    err !== '' ? 
-                        <div className="message_section">
-                            <h4> {err} </h4>
-                            <button className = "contact_button" onClick={()=> setErr('')}>Clear</button>
-                        </div>
-                        : null
-                }
-
+                err !== '' ? 
+                    <div className="message_section">
+                        <h4> {err} </h4>
+                        <button className = "btn btn-danger" onClick={()=> setErr('')}> <ClearIcon /> </button>
+                    </div>
+                    : null
+            }
 
             <center className = "camera_and_pic">
                 <div className="verification" id= "verify" style = {{
-                    margin:"10vh 0"
+                    margin:"5vh 0 2vh 0"
                     }}>
-                        
-                    <button onClick = {camerafn}> {showcam?`Stop`:`Start`} Verification</button>
 
                     {
                         showcam?
@@ -114,42 +124,41 @@ const SubEvent = (props) => {
                                 width={500}
                                 // videoConstraints={videoConstraints}
                             />
-                            <button onClick={capture} style={{margin:"1vh 0"}}>Capture photo</button>
+                            <button className = "btn btn-secondary"
+                            onClick={capture} style={{margin:"1vh 0"}}>Capture photo</button>
                         </div>
-                        : null
+                        : 
+                        <PhotoCameraIcon style = {{fontSize : 350}} />
                     }
                     
                 </div>
-                
-                <div className="img_field">
-                    {
-                    imgsrc === ""? 
-                        <h2 style = {{color:"white"}}> Image will be displayed here </h2>:
-                        <>
-                            <img src={imgsrc} alt=".." srcset="" height= "365px" width= "400px"/>
 
-                            <div className="btnss" style= {{marginTop:"5vh"}}>
-                                
-                                {
-                                    loading ? 
-                                    <div className="loading_loading" style = {{display:"flex", justifyContent:"center",alignItems:"center"}}>
-                                        <Default color = "rgb(230, 43, 83)" size = {80} />
-                                    </div>
-                                    :
-                                    <div className = "camButtons">
-                                        <button  onClick = {verifyFn}>Verify</button>
-                                        <button  onClick = {()=> 
-                                        {setImgsrc('') 
-                                        setErr('')}}
-                                        >Clear</button>
-                                    </div>
-                                }
+                {
+                    imgsrc === ""?  <PhotoSizeSelectActualIcon style = {{fontSize:350, margin:"3vh 5vw"}} />
+                    :
+                    <div className="img_field">
+                        <img src={imgsrc} alt=".." srcset="" height= "365px" width= "400px"/>
 
-                            </div>
-                           
-                        </>
-                    }
-                </div>
+                        <div className="btnss" style= {{marginTop:"5vh"}}>
+                            
+                            {
+                                loading ? 
+                                <div className="loading_loading" style = {{display:"flex", justifyContent:"center",alignItems:"center"}}>
+                                    <Ellipsis color = "rgb(230, 43, 83)" size = {60} />
+                                </div>
+                                :
+                                <div className = "camButtons">
+                                    <button className = "btn btn-primary" onClick = {verifyFn}>Verify</button>
+                                    <button className = "btn btn-danger" onClick = {()=> 
+                                    {setImgsrc('') 
+                                    setErr('')}}
+                                    >Clear</button>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                }
     
             </center>
         </div>

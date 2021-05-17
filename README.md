@@ -3,8 +3,15 @@
 This program authenticates people using their faces and stores the data in the database. 
 This application is being written using Django + React. React is set up manually using webpack and rendered using the django templates.
 
+**This application is still in development mode and not deployed yet. I do not have access to any hosting services like AWS or Azure that provides GPU support.**
+**I am trying to access Azure using Github Student Pack but due to some problems, I haven't been able to do so.Hopefully, it will be solved in the near future.**
+
+
 ## Set Up Instructions
 1. Clone the repo.
+```sh
+$ git clone https://github.com/Kaushal-Dhungel/Facial-authentication.git
+```
 
 2. Install the dependencies
 ```sh

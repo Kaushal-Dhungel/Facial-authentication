@@ -2,9 +2,9 @@ const path = require("path");
 const webpack = require("webpack");
 
 module.exports = {
-  entry: "./src/index.js",
+  entry: "../src/index.js",
   output: {
-    path: path.resolve(__dirname, "./static/reactjs"),
+    path: path.resolve(__dirname, "../static/reactjs"),
     // filename: "[name].js",
     filename : "reactapp.js"
   },
@@ -52,6 +52,7 @@ module.exports = {
   ],
 
   resolve: {
+    modules: [path.resolve(__dirname,"./node_modules")],
     extensions: ['.js', '.jsx']
 }
 };

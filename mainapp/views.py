@@ -81,7 +81,6 @@ class EventView(APIView):
         try:
             data = Event.objects.filter(user = request.user.id)
             serializer = EventSerializer(data,many = True)
-            print(serializer.data)
             return Response(serializer.data)
         
         except Exception as e :
@@ -113,7 +112,6 @@ class EventView(APIView):
 class SubeventView(APIView):
 
     def get(self,request,*args, **kwargs):
-        print(request.user)
         slug = kwargs['slug']
         event = Event.objects.get(slug= slug)
         try:
@@ -143,7 +141,6 @@ class SubeventView(APIView):
             serializer = SubEventSerializer(data = mydict)
             serializer.is_valid(raise_exception=True)
             serializer.save()
-            print(serializer.data)
             return Response(serializer.data)
         except Exception as e:
             print(e)
@@ -175,7 +172,7 @@ class TrainView(APIView):
         files = {'image': img}
         try:
             data = requests.post(url,files = files)
-            print(data.json())
+            # print(data.json())
             if len(data.json()['embd']) == 0:
                 return Response({"no face detected in the pic."}, status= status.HTTP_400_BAD_REQUEST)
             
@@ -203,7 +200,7 @@ class VerifyView(APIView):
             subevent = Subevent.objects.get(slug= slug)
 
             data = requests.post(url,files = files)
-            print(data.json())
+            # print(data.json())
             if len(data.json()['embd']) == 0:
                 return Response({"no face detected in the pic."}, status= status.HTTP_400_BAD_REQUEST)
 
