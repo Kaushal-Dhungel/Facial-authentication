@@ -1,11 +1,13 @@
 ## Facial Authentication System
 
+*This application is still in development mode and not deployed yet. I do not have access to any hosting services like AWS or Azure that provides GPU support.*
+*For testing I create a microservice using Flask and Ngrok in Google Colab where the Facenet Model is run and served using Rest API*
+*I am trying to access Azure using Github Student Pack but due to some problems, I haven't been able to do so.Hopefully, it will be solved in the near future.*
+
+
+
 This program authenticates people using their faces and stores the data in the database. 
 This application is being written using Django + React. React is set up manually using webpack and rendered using the django templates.
-
-**This application is still in development mode and not deployed yet. I do not have access to any hosting services like AWS or Azure that provides GPU support.**
-**I am trying to access Azure using Github Student Pack but due to some problems, I haven't been able to do so.Hopefully, it will be solved in the near future.**
-
 
 ## Set Up Instructions
 1. Clone the repo.
