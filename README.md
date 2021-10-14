@@ -2,7 +2,7 @@
 
 *This application is still in development mode and not deployed yet. I do not have access to any hosting services like AWS or Azure that provides GPU support.*
 *For testing I create a microservice using Flask and Ngrok in Google Colab where the Facenet Model is run and served using Rest API*
-*I am trying to access Azure using Github Student Pack but due to some problems, I haven't been able to do so.Hopefully, it will be solved in the near future.*
+*This application can only be deployed once I get access to GPU service*
 
 
 
@@ -34,6 +34,11 @@ $ npm i
 ```sh
 $ python3 manage.py runserver
 ```
+
+## Running the facenet API
+- Deploy the falsk app from `facenet_api.py` on a cloud service provider like AWS or Azure which provides GPU support.
+- Copy the url of the app and paste in the `TrainView` and `VerifyView` of `views.py` inside the `mainapp` directory.
+
 
 ## How To Use??
 1. Register

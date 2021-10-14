@@ -168,7 +168,10 @@ class TrainView(APIView):
         name = request.data['name']
         img = request.data['img']
         slug = request.data['slug']
+
+        # this url is the url of facenet API
         url = 'http://527a69d92527.ngrok.io'
+        
         files = {'image': img}
         try:
             data = requests.post(url,files = files)
@@ -193,6 +196,7 @@ class VerifyView(APIView):
         img = request.data['img']
         slug = request.data['slug']
 
+        # this url is the url of facenet API
         url = 'http://527a69d92527.ngrok.io'
         files = {'image': img}
         try:
