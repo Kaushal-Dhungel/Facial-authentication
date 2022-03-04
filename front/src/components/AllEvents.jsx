@@ -109,7 +109,7 @@ const AllEvents = () => {
                     onChange = {handleEventChange}
                     value = {eventValue}
                     />
-                    <button className = "btn btn-outline-secondary" 
+                    <button className = "btn btn-primary" 
                     onClick = {handleAddEvent}
                     disabled = {eventValue === ""}
                     > <AddIcon /> </button>
@@ -157,9 +157,12 @@ const AllEvents = () => {
                         return(
                             <div key = {index} className="col-12 col-sm-12 col-md-6 col-lg-4 mt-5 ">
                                 <div key = {index} className="event_card">
+                                    <span className="datetag">
+                                    {`${new Date(item.created).getFullYear()}-${new Date(item.created).getMonth()}-${new Date(item.created).getDate()}`}
+                                    </span>
                                     <h4> {item.name} </h4>
-                                    <p> {`${new Date(item.created).getFullYear()}-${new Date(item.created).getMonth()}-${new Date(item.created).getDate()}`} </p>
-                                    <Link to = {`/event/${item.slug}`} className = "btn btn-danger">Visit <ArrowRightAltIcon /> </Link>
+                                    {/* <p> {`${new Date(item.created).getFullYear()}-${new Date(item.created).getMonth()}-${new Date(item.created).getDate()}`} </p> */}
+                                    <Link to = {`/event/${item.slug}`} className = "btn btn-secondary">Visit <ArrowRightAltIcon /> </Link>
                                 </div>
                             </div>
                         )

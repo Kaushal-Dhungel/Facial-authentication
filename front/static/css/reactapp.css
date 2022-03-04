@@ -1,5 +1,6 @@
 body {
-	background-color: hsl(218, 85%, 3%);
+	/* background-color: hsl(218, 85%, 3%); */
+    background: #2c3e50;
 
 }
 
@@ -15,9 +16,6 @@ body {
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
-	/* background-color: hsl(213, 82%, 4%); */
-	/* background-color: hsl(223, 91%, 5%); */
-    
 }
 
 .start_btns a {
@@ -30,7 +28,7 @@ body {
 }
 
 .text_part h3, .text_part p {
-    color: rgb(201, 182, 182);
+    color: rgb(233, 233, 233);
 }
 
 @media screen and (max-width: 780px) {
@@ -48,17 +46,33 @@ body {
 .event_card {
 	height: 20vh;
 	background-color: hsl(0, 0%, 13%);
-	/* background-color:teal; */
+	background-color:rgb(36, 45, 66);
+    box-shadow: 0px 17px 10px -10px rgba(0, 0, 0, 0.4);
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	border-radius: 20px;
     padding: 20px;
+    position: relative;
+}
+
+.datetag {
+    position: relative;
+    left: 35%;
+    bottom: 15%;
+    padding: 5px 5px;
+    border-radius: 5px;
+    background-color:#ff006a ;
+    color: #fff;
+    box-shadow: 0px 17px 10px -10px rgba(0, 0, 0, 0.4);
+
 }
 
 .event_card h4,.event_card p {
 	color: rgb(219, 208, 208);
+	color: rgb(235, 233, 233);
+
 }
 
 .top {
@@ -67,7 +81,7 @@ body {
 
 .heading h3 {
 	text-align: center;
-	color: rgb(190, 184, 184);
+	color: rgb(231, 231, 231);
 	/* position: relative; */
 }
 
@@ -84,7 +98,7 @@ body {
 }
 
 .message_section h4 {
-	color: rgb(212, 206, 193);
+	color: rgb(221, 218, 210);
 	text-align: center;
 }
 
@@ -146,13 +160,13 @@ body {
     gap: 2rem;
 }
 .add_people h3 {
-    color: rgb(196, 195, 195);
+    color: rgb(233, 233, 233);
     text-align: center;
 }
 
 .add_people h3::after {
     content: "";
-    background: #d6d4d4;
+    background: #dddddd;
     width: 250px;
     height: 2px;
     border-radius: 5px;
@@ -271,7 +285,7 @@ body {
 }
 
 .logout_screen h4 {
-	color: rgb(197, 181, 181)
+	color: rgb(207, 198, 198)
 }
 
 /* ----------------------------------------------------------- login------------------------------------------------------- */
@@ -294,6 +308,7 @@ body {
 
 .contact_form {
 	background-color:hsl(228, 11%, 9%);
+    background-color: #2c3e50;
 	padding: 4vh 6vw;
 	border-radius: 20px;
 }
@@ -311,6 +326,7 @@ body {
 
 form {
 	background-color: hsl(218, 85%, 3%);
+    background-color: #2c3e50;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -497,12 +513,12 @@ h1 {
     margin:5vh 0;
     text-align: center;
     font-size: 2.8em;
-    color: #d6d4d4;
+    color: #f1f1f1;
   }
 
 .header::after {
       content: "";
-      background: #d6d4d4;
+      background: #f1f1f1;
       width: 380px;
       height: 5px;
       border-radius: 5px;
@@ -521,6 +537,7 @@ h1 {
   
   .formStyle { 
     background-color: hsl(218, 85%, 3%);
+    background-color: #2c3e50;
     padding: 20px; 
     width: 400px; 
     margin-bottom: 20px; 
@@ -584,6 +601,7 @@ input[type=file] {
     -moz-appearance: textfield; */
     /* display: none; */
     background-color:  hsl(218, 85%, 3%);
+    background-color: #2c3e50;
     color: white;
   }
 

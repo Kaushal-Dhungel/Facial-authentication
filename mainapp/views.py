@@ -33,17 +33,15 @@ class LogoutUser(APIView):
     def get(self,request,*args, **kwargs):
         try:
             logout(request)
-            print("logout successful")
             return Response({"Logout Successful"},status= status.HTTP_200_OK)
         except Exception as e:
-            print(e)
+            # print(e)
             return Response({"Unknown Error Occured"},status=status.HTTP_400_BAD_REQUEST)
         
 
 class RegisterUser(APIView):
 
     def post(self,request,*args, **kwargs):
-        # print(request.data)
         username = request.data.get('username')
         email = request.data.get('email')
         password1 = request.data.get('password1')
@@ -77,14 +75,13 @@ class RegisterUser(APIView):
 class EventView(APIView):
     pagination_class = PageNumberPagination
     def get(self,request,*args, **kwargs):
-        # print(request.user)
         try:
             data = Event.objects.filter(user = request.user.id)
             serializer = EventSerializer(data,many = True)
             return Response(serializer.data)
         
         except Exception as e :
-            print(e)
+            # print(e)
             return Response({"data not found"})
 
     def post(self,request,*args,**kwargs):
@@ -102,10 +99,8 @@ class EventView(APIView):
             serializer = EventSerializer(data = mydict)
             serializer.is_valid(raise_exception=True)
             serializer.save()
-            # print(serializer.data)
             return Response(serializer.data)
         except Exception as e:
-            print(e)
             return Response({"saving failed"})
 
 
@@ -116,12 +111,10 @@ class SubeventView(APIView):
         event = Event.objects.get(slug= slug)
         try:
             data = Subevent.objects.filter(event=event)
-            # print(data)
             serializer = SubEventSerializer(data,many = True)
             return Response(serializer.data)
         
         except Exception as e :
-            print(e)
             return Response({"data not found"})
 
     def post(self,request,*args,**kwargs):
@@ -130,7 +123,6 @@ class SubeventView(APIView):
         slug = request.data['slug']
         event = Event.objects.get(slug= slug)
 
-        print(event.id)
         mydict = {
             'event': event.id,
             's_name': name,
@@ -143,13 +135,11 @@ class SubeventView(APIView):
             serializer.save()
             return Response(serializer.data)
         except Exception as e:
-            print(e)
             return Response({"saving failed"})
 
 class PersonView(APIView):
 
     def get(self,request,*args, **kwargs):
-        # print(request.user)
         slug = kwargs['slug']
         event = Event.objects.get(slug= slug)
         try:
@@ -175,7 +165,6 @@ class TrainView(APIView):
         files = {'image': img}
         try:
             data = requests.post(url,files = files)
-            # print(data.json())
             if len(data.json()['embd']) == 0:
                 return Response({"no face detected in the pic."}, status= status.HTTP_400_BAD_REQUEST)
             
@@ -187,7 +176,6 @@ class TrainView(APIView):
             return Response({"training successful"},status=status.HTTP_201_CREATED)
             
         except Exception as e:
-            print(e)
             return Response({"training failed"},status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -204,7 +192,6 @@ class VerifyView(APIView):
             subevent = Subevent.objects.get(slug= slug)
 
             data = requests.post(url,files = files)
-            # print(data.json())
             if len(data.json()['embd']) == 0:
                 return Response({"no face detected in the pic."}, status= status.HTTP_400_BAD_REQUEST)
 
@@ -236,7 +223,6 @@ class VerifyView(APIView):
                 return Response({"Unauthorized. Access Denied"},status=status.HTTP_401_UNAUTHORIZED)
 
         except Exception as e:
-            print(e)
             return Response({"Some Error Occured. Please Try Again"},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class AuthenticatedView(APIView):
@@ -248,10 +234,7 @@ class AuthenticatedView(APIView):
             subevent = Subevent.objects.get(slug = slug)
             person = Person.objects.filter(event_name = event)
             authenticated_person = Authenticated.objects.filter(subevent = subevent)
-            print(subevent)
-            print(authenticated_person)
             serializer = AuthenticatedSerializer(authenticated_person,many = True)
-            print(serializer.data)
             return Response(serializer.data,status= status.HTTP_200_OK)
 
         except Exception as e:
